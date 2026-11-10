@@ -122,7 +122,58 @@ class linkedList {
         }
         return pont->valor;
     }
+
+    void removeByIndex(int n){
+        if(n >= this->size()){
+            return;
+        }
+        No* pont = head;
+        int i = 0;
+        while(i < n){
+            if(pont->next == nullptr){
+                return;
+            }
+            pont = pont->next;
+            i++;
+        }
+        No* remove = pont->next;
+        pont->next = pont->next->next;
+        delete remove;
+    }
+
+    void duplicate(){
+        No* cur = head->next;
+        No* prev = nullptr;
+
+        while(cur != nullptr){
+            prev = cur;
+            cur = cur->next;
+            No* novo = new No(prev->valor);
+            novo->next = cur;
+            prev->next = novo;
+        }
+    }
     
+    No* reverseRec(int size = this->size()){
+        if(size == 0){
+            return head;
+        }
+        if(size == 1){
+            head->next->next = nullptr;
+            return head->next;
+        }
+        No* pont =  head;
+        int i = 0;
+        while(i < size){
+            pont = pont->next;
+            i++;
+        }
+        size--;
+        pont->next = reverseRec(size);
+        head->next = pont;
+        return pont;
+    }
+
 }
 
 linkedList mesclar(linkedList arr, linkedList arr2) {
