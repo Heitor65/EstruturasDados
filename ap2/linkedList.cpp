@@ -239,9 +239,20 @@ class linkedList {
         delete pont1;
     }
 
-    
+    bool isThereCycle(){
+        
+        No* fast = head;
+        No* slow= head;
 
-    
+        while(fast != nullptr && fast->next != nullptr){
+            fast=fast->next->next;
+            slow=slow->next;
+            if(slow == fast){
+                return true;
+            }
+        }
+        return false;
+    }
 }
 
 linkedList mesclar(linkedList arr, linkedList arr2) {
