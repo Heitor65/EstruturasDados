@@ -1,3 +1,5 @@
+#include <vector>
+
 class No{
     int valor;
     No* next;
@@ -219,6 +221,27 @@ class linkedList {
         }
     }
 
+    void removeByIdx(int idx){
+        int tamanho = this->size();
+        if(idx >= tamanho || tamanho = 0){
+            return;
+        }
+        No* pont1 = head->next;
+        No*pont2 = head;
+
+        int i = 0;
+        while(i < idx){
+            pont1=pont1->next;
+            pont2=pont2->next;
+            i++;
+        }
+        pont2->next = pont1->next; 
+        delete pont1;
+    }
+
+    
+
+    
 }
 
 linkedList mesclar(linkedList arr, linkedList arr2) {
@@ -234,4 +257,23 @@ linkedList mesclar(linkedList arr, linkedList arr2) {
         nova.addF(pont1->valor);
     }
     return nova;
+}
+
+vector<linkedList> metades(linkedList v){
+    No* fast = v.head->next->next;
+    No* slow = v.head->next;
+    linkedList esquerda = linkedList();
+    linkedList direita = linkedList();
+    esquerda.addF(slow->valor);
+    while(fast != nullptr && fast->next != nullptr){
+        fast = fast->next->next;
+        slow=slow->next;
+        esquerda.addF(slow->valor);
+    }
+    while(slow->next != nullptr){
+        slow=slow->next;
+        direita.addF(slow->valor);
+    }
+    vector<linkedList> listas = {esquerda, direita};
+    return listas;
 }
