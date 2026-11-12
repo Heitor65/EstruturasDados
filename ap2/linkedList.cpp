@@ -174,6 +174,51 @@ class linkedList {
         return pont;
     }
 
+    bool isPalindrome(){
+        size = this->size();
+        if(size > 2){
+            No* fast = head->next->next;
+            No* slow = head;
+
+            while(fast != nullptr){
+                if(fast->next == nullptr){
+                    fast = nullptr;
+                } else {
+                    fast = fast->next->next;
+                }
+
+                slow = slow->next;
+            }
+
+            No* cur = slow->next;
+            No* nextP = nullptr;
+            No* prev = nullptr;
+
+            while(cur != nullptr){
+                nextP = cur->next;
+                cur->next = prev;
+                prev = cur;
+                cur = nextP;
+            }
+
+            slow->next = prev;
+            slow = slow->next;
+
+            No* checkpoint = slow;
+
+            cur = head->next;
+
+            while(cur != checkpoint){
+                if(cur->valor != slow->valor){
+                    return false;
+                }
+                cur = cur->next;
+                slow = slow->next;
+            }
+            return true;
+        }
+    }
+
 }
 
 linkedList mesclar(linkedList arr, linkedList arr2) {
